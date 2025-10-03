@@ -28,6 +28,8 @@ const API_KEY = "AIzaSyAPyn6lH8xXXjB1nx6YK-w5mwlgoSdglqM"; // <-- API key must b
 
 document.getElementById("generatePlaylist").onclick = async function () {
     const mood = document.getElementById("mood").value;
+    const genre = document.getElementById("genre").value;
+    const language = document.getElementById("language").value;
     const playlistDiv = document.getElementById("playlist");
     playlistDiv.innerHTML = "Loading...";
 
@@ -36,10 +38,11 @@ document.getElementById("generatePlaylist").onclick = async function () {
         happy: "happy songs playlist",
         sad: "sad songs playlist",
         energetic: "energetic songs playlist",
-        relax: "relaxing music playlist"
+        calm: "calm songs playlist"
     };
 
-    const query = moodQueries[mood] || "music playlist";
+    // Combine mood, genre, and language for a more accurate search
+    const query = `${language} ${genre} ${moodQueries[mood] || "music playlist"}`;
 
     try {
         const res = await fetch(
@@ -72,4 +75,25 @@ document.getElementById("generatePlaylist").onclick = async function () {
         // Your analyzeText logic here
         alert("Analyze Text button clicked! (Add your logic here)");
     };
+    
+    document.getElementById('generatePlaylist').addEventListener('click', function() {
+        const mood = document.getElementById('mood').value;
+        const genre = document.getElementById('genre').value;
+        const language = document.getElementById('language').value;
+    
+        // Example: Use the selected values to generate a playlist
+        // Replace this with your actual playlist generation logic
+        const playlistDiv = document.getElementById('playlist');
+        playlistDiv.innerHTML = `
+            <button id="generatePlaylist">Generate Playlist</button>
+            <div>
+                <h3>Generated Playlist</h3>
+                <p>Mood: ${mood}</p>
+                <p>Genre: ${genre}</p>
+                <p>Language: ${language}</p>
+                <!-- Add your playlist rendering here -->
+            </div>
+        `;
+    });
 });
+
